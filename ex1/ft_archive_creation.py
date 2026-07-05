@@ -7,18 +7,21 @@ def read_file_improved() -> None:
         try:
             file = sys.argv[1]
             f = open(file)
-            print(f.read())
-            content = ""
-            for line in f:
-                print(line[:-1] + "#")
-                content += line[:-1] + "#\n"
+            content = f.read()
+            print(content)
             f.close()
             print(f"File '{sys.argv[1]}' closed.\n")
-            saved = input("Enter new file name (or empty): ")
+            print("Transform data: \n")
+            new_content = ""
+            for line in content.split("\n"):
+                if line != "":
+                    print(line + "#")
+                    new_content += line + "#\n"
+            saved = input("\nEnter new file name (or empty): ")
             if saved != "":
                 try:
                     s = open(saved, "w")
-                    s.write(content)
+                    s.write(new_content)
                     print(f"Saving data to '{saved}'")
                     print(f"Data saved in file '{saved}'")
                     s.close()
@@ -31,8 +34,8 @@ def read_file_improved() -> None:
             print(f"Error opening file '{sys.argv[1]}': {e}")
         except PermissionError as e:
             print(f"Error opening file '{sys.argv[1]}': {e}")
-        else:
-            print("Usage: ft_ancient_text.py <file>")
+    else:
+        print("Usage: ft_ancient_text.py <file>")
 
 
 if __name__ == "__main__":
